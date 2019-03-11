@@ -20,12 +20,13 @@ shinyUI( fluidPage(
                                  rHandsontableOutput("table"),
                                  br(),
                                  actionButton("plotBtn","Plot"),
-                                 actionButton("curveBtn","curve"),
-                                 plotOutput("plot1")
+                                 actionButton("curveBtn","curve")
                                 )
                           )
                         ),
-               tabPanel( "plot")
+               tabPanel( "plot",
+                         plotOutput("plot1")
+                        )
               )
   )
 )
