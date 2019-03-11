@@ -2,8 +2,10 @@ library(shiny)
 library(rhandsontable)
 
 # Creating dataset
-X = as.numeric(rep(NA, times = 10))
-Y = as.numeric(rep(NA, times = 10))
+# X = as.numeric(rep(NA, times = 10))
+# Y = as.numeric(rep(NA, times = 10))
+X <- c(1,2,5,20,80,100,300,500,1000)
+Y <- c(0.0154,0.02894,0.04534,0.07138,0.08778,0.08875,0.10032,0.0955,0.06752)
 df1 = data.frame(X=X, Y=Y)
 
 shinyServer(function(input,output,session){
@@ -13,17 +15,23 @@ shinyServer(function(input,output,session){
   })
   observeEvent(input$plotBtn, {
     df1 <- hot_to_r(input$table)
+    MMcurve<-formula(df1$Y ~ Vmax* df1$X /(Km + df1$X))
+    bestfit <- nls(MMcurve, df1, start=list(Vmax=0.0035,Km=0.15))
+    Coeffs <- coef(bestfit)
     output$plot1 <- renderPlot({
       plot(df1$X,df1$Y)
-    }) })
+      # curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
+    })
+   })
   observeEvent(input$curveBtn, {
     df1 <- hot_to_r(input$table)
     MMcurve<-formula(df1$Y ~ Vmax* df1$X /(Km + df1$X))
-    bestfit <- nls(MMcurve, kinData, start=list(Vmax=0.0035,Km=0.15))
-    bestfit
-    coef(bestfit)
-    sconcRange <- seq(0, 50, .001)
-    theorLine <- predict(bestfit, list(S=sconcRange))
-    lines(sconcRange,theorLine,col="red") })
-}) 
+    bestfit <- nls(MMcurve, df1, start=list(Vmax=0.0035,Km=0.15))
+    Coeffs <- coef(bestfit)
+    output$plot1 <- renderPlot({
+      plot(df1$X,df1$Y)
+      curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
+    })
+  })
+})
 
