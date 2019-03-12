@@ -29,7 +29,7 @@ shinyServer(function(input,output,session){
     bestfit <- nls(MMcurve, df1, start=list(Vmax=0.0035,Km=0.15))
     Coeffs <- coef(bestfit)
     output$plot1 <- renderPlot({
-      plot(df1$X,df1$Y)
+      plot(df1$X,df1$Y, pch = 20, cex = 1.5)
       curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
     })
   })
