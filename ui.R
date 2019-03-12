@@ -10,7 +10,8 @@ shinyUI( fluidPage(
                #names and adds input into the different panels
                tabPanel( "Number of Data Sets", 
                         fluidRow(
-                          textInput("dataSets", h3("Enter Number of Data Sets"), value = "", width = NULL, placeholder = NULL),
+                          numericInput("obs", "Observations:", 10, min = 1, max = 100),
+                          verbatimTextOutput("value"),
                           actionButton("entr", "Enter")
                 )),
                tabPanel("data",
