@@ -14,17 +14,17 @@ shinyUI( fluidPage(
                           verbatimTextOutput("value"),
                           actionButton("entr", "Enter")
                 )),
-               tabPanel("data",
+               tabPanel("Data",
                         fluidRow(
                           column(3,
-                                 helpText("editable table"),
+                                 helpText("Editable Table"),
                                  rHandsontableOutput("table"),
                                  br(),
-                                 actionButton("curveBtn","curve")
+                                 actionButton("curveBtn","Curve")
                                 )
                           )
                         ),
-               tabPanel( "plot",
+               tabPanel( "Plot",
                          plotOutput("plot1")
                         )
               )

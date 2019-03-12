@@ -11,6 +11,7 @@ df1 = data.frame(X=X, Y=Y)
 
 shinyServer(function(input,output,session){
  # returns rhandsontable type object - editable excel type grid data
+<<<<<<< HEAD
   observeEvent(input$plotBtn, {
     df1 <- hot_to_r(input$table)
     MMcurve<-formula(df1$Y ~ Vmax* df1$X /(Km + df1$X))
@@ -28,6 +29,11 @@ shinyServer(function(input,output,session){
                output$table <- renderRHandsontable({
                  rhandsontable(df1) # converts the R dataframe to rhandsontable object
                })})
+=======
+  output$table <- renderRHandsontable({
+    rhandsontable(df1) # converts the R dataframe to rhandsontable object
+  })
+>>>>>>> 0df81ec8e89676ceb1b6562c18ca7e5bd66f94eb
   observeEvent(input$curveBtn, {
     df1 <- hot_to_r(input$table)
     MMcurve<-formula(df1$Y ~ Vmax* df1$X /(Km + df1$X))
