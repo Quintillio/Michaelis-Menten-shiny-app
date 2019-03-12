@@ -13,16 +13,6 @@ shinyServer(function(input,output,session){
   output$table <- renderRHandsontable({
     rhandsontable(df1) # converts the R dataframe to rhandsontable object
   })
-  observeEvent(input$plotBtn, {
-    df1 <- hot_to_r(input$table)
-    MMcurve<-formula(df1$Y ~ Vmax* df1$X /(Km + df1$X))
-    bestfit <- nls(MMcurve, df1, start=list(Vmax=0.0035,Km=0.15))
-    Coeffs <- coef(bestfit)
-    output$plot1 <- renderPlot({
-      plot(df1$X,df1$Y)
-      # curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
-    })
-   })
   observeEvent(input$curveBtn, {
     df1 <- hot_to_r(input$table)
     MMcurve<-formula(df1$Y ~ Vmax* df1$X /(Km + df1$X))
