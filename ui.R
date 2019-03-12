@@ -13,17 +13,17 @@ shinyUI( fluidPage(
                           textInput("dataSets", h3("Enter Number of Data Sets"), value = "", width = NULL, placeholder = NULL),
                           actionButton("entr", "Enter")
                 )),
-               tabPanel("data",
+               tabPanel("Data",
                         fluidRow(
                           column(3,
                                  helpText("editable table"),
                                  rHandsontableOutput("table"),
                                  br(),
-                                 actionButton("curveBtn","curve")
+                                 actionButton("curveBtn","Curve")
                                 )
                           )
                         ),
-               tabPanel( "plot",
+               tabPanel( "Plot",
                          plotOutput("plot1")
                         )
               )
