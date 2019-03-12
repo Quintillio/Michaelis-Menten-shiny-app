@@ -16,7 +16,7 @@ shinyUI( fluidPage(
                tabPanel("Data",
                         fluidRow(
                           column(3,
-                                 helpText("editable table"),
+                                 helpText("Editable Table"),
                                  rHandsontableOutput("table"),
                                  br(),
                                  actionButton("curveBtn","Curve")
