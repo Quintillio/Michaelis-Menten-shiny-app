@@ -4,8 +4,8 @@ library(rhandsontable)
 # Creating dataset
 # X = as.numeric(rep(NA, times = 10))
 # Y = as.numeric(rep(NA, times = 10))
-X <- c(1,2,5,20,80,100,300,500,1000)
-Y <- c(0.0154,0.02894,0.04534,0.07138,0.08778,0.08875,0.10032,0.0955,0.06752)
+X <- c(0,1,2,5,20,80,100,300,500,1000)
+Y <- c(0,0.0154,0.02894,0.04534,0.07138,0.08778,0.08875,0.10032,0.0955,0.06752)
 df1 = data.frame(X=X, Y=Y)
 
 shinyServer(function(input,output,session){
