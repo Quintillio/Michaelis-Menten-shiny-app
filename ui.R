@@ -19,7 +19,6 @@ shinyUI( fluidPage(
                                  helpText("editable table"),
                                  rHandsontableOutput("table"),
                                  br(),
-                                 actionButton("plotBtn","Plot"),
                                  actionButton("curveBtn","curve")
                                 )
                           )
