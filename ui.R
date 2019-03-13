@@ -9,11 +9,11 @@ shinyUI( fluidPage(
   tabsetPanel( type = "tabs",
                #names and adds input into the different panels
                tabPanel( "Number of Data Sets", 
-                        fluidRow(
-                          numericInput("obs", "Observations:", 10, min = 1, max = 100),
-                          verbatimTextOutput("value"),
-                          actionButton("entr", "Enter")
-                )),
+                         fluidRow(
+                           numericInput("obs", "Observations:", 10, min = 1, max = 100),
+                           verbatimTextOutput("value"),
+                           actionButton("entr", "Enter")
+                         )),
                tabPanel("Data",
                         fluidRow(
                           column(3,
@@ -21,13 +21,13 @@ shinyUI( fluidPage(
                                  rHandsontableOutput("table"),
                                  br(),
                                  actionButton("curveBtn","Curve")
-                                )
                           )
-                        ),
+                        )
+               ),
                tabPanel( "Plot",
                          plotOutput("plot1")
-                        )
-              )
+               )
   )
+)
 )
 
