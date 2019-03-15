@@ -38,5 +38,10 @@ shinyServer(function(input,output,session){
       curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
     })
   })
+  autoInvalidate <- reactiveTimer(10000)
+  observe({
+    autoInvalidate()
+    cat(".")
+  })
 })
 
