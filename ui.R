@@ -19,7 +19,11 @@ shinyUI( fluidPage(
                           column(3,
                                  helpText("Editable Table"),
                                  rHandsontableOutput("table"),
-                                 br(),
+                                 textInput("title", "Title", "Title"),
+                                 textInput("xaxis", "X-axis lable", "X-Axis"),
+                                 textInput("yaxis", "Y-axis lable", "Y-Axis"),
+                                 numericInput("vmax", "Vmax Estimate", 1),
+                                 numericInput("Km", "Km Estimate", 1),
                                  actionButton("curveBtn","Curve")
                           )
                         )
