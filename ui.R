@@ -24,13 +24,18 @@ shinyUI( fluidPage(
                                  textInput("yaxis", "Y-axis lable", "Y-Axis"),
                                  numericInput("vmax", "Vmax Estimate", 1),
                                  numericInput("Km", "Km Estimate", 1),
+                                 actionButton("plotBtn", "Plot"),
                                  actionButton("curveBtn","Curve")
                           )
                         )
                ),
                tabPanel( "Plot",
                          plotOutput("plot1")
-               )
+               ),
+               tabPanel("Km and Vmax",
+                        h1("Km:",verbatimTextOutput("kmdisplay", placeholder = T)),
+                        h1("Vmax:",verbatimTextOutput("vmaxdisplay", placeholder = T)))
+                        
   )
 )
 )

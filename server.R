@@ -4,7 +4,7 @@ library(rhandsontable)
 # Creating dataset
 X = as.numeric(rep(NA, times = 10))
 Y = as.numeric(rep(NA, times =  10))
-#X <- c(0,1,2,5,20,80,100,300,500,1000)
+#X <- c(0.5,1,2,5,20,80,100,300,500,1000)
 #Y <- c(0,0.0154,0.02894,0.04534,0.07138,0.08778,0.08875,0.10032,0.0955,0.06752)
 df1 = data.frame(X=X, Y=Y)
 
@@ -17,8 +17,7 @@ shinyServer(function(input,output,session){
     bestfit <- nls(MMcurve, df1, start=list(Vmax=0.0035,Km=0.15))
     Coeffs <- coef(bestfit)
     output$plot1 <- renderPlot({
-      plot(df1$X,df1$Y)
-      # curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
+      plot(df1$X,df1$Y,xlab=input$xaxis,ylab= input$yaxis, pch = 20, cex = 1.5, title(main= input$title))
     })
   })
   observeEvent(input$entr,{
@@ -34,8 +33,11 @@ shinyServer(function(input,output,session){
     bestfit <- nls(MMcurve, df1, start=list(Vmax=input$vmax,Km=input$Km))
     Coeffs <- coef(bestfit)
     output$plot1 <- renderPlot({
-      plot(df1$X,df1$Y,xlab=input$xaxis,ylab= input$yaxis, pch = 20, cex = 1.5, title(main= input$title)) #pch makes points solid. cex increases their size.
+      #pch makes points solid. cex increases their size.
+      plot(df1$X,df1$Y,xlab=input$xaxis,ylab= input$yaxis, pch = 20, cex = 1.5, title(main= input$title))
       curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
+      output$kmdisplay <- renderText({ Coeffs[2] })
+      output$vmaxdisplay <- renderText({ Coeffs[1] })
     })
   })
   autoInvalidate <- reactiveTimer(10000)
