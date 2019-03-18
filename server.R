@@ -9,6 +9,7 @@ Y = as.numeric(rep(NA, times =  10))
 df1 = data.frame(X=X, Y=Y)
 
 
+
 shinyServer(function(input,output,session){
   # returns rhandsontable type object - editable excel type grid data
   observeEvent(input$plotBtn, {
@@ -38,6 +39,7 @@ shinyServer(function(input,output,session){
       curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
       output$kmdisplay <- renderText({ Coeffs[2] })
       output$vmaxdisplay <- renderText({ Coeffs[1] })
+      output$r2 <- renderText({ })
     })
   })
   autoInvalidate <- reactiveTimer(10000)

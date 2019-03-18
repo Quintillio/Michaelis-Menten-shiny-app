@@ -34,7 +34,9 @@ shinyUI( fluidPage(
                ),
                tabPanel("Km and Vmax",
                         h1("Km:",verbatimTextOutput("kmdisplay", placeholder = T)),
-                        h1("Vmax:",verbatimTextOutput("vmaxdisplay", placeholder = T)))
+                        h1("Vmax:",verbatimTextOutput("vmaxdisplay", placeholder = T)),
+                        h1("R", tags$sup(2),verbatimTextOutput("r2", placeholder = T))
+                        )
                         
   )
 )
