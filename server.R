@@ -18,7 +18,11 @@ shinyServer(function(input,output,session){
     bestfit <- nls(MMcurve, df1, start=list(Vmax=0.0035,Km=0.15))
     Coeffs <- coef(bestfit)
     output$plot1 <- renderPlot({
-      plot(df1$X,df1$Y,xlab=input$xaxis,ylab= input$yaxis, pch = 20, cex = 1.5, title(main= input$title))
+      #plot(df1$X,df1$Y,xlab=input$xaxis,ylab= input$yaxis, pch = 20, cex = 1.5, title(main= input$title))
+      ggplot(data = df1, mapping = aes(x = df1$X, y = df1$Y))+  
+        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),axis.line = element_line(colour = "black")) +
+        theme(plot.title = element_text(lineheight=.8, face="bold")) +
+        geom_point()+ labs(title = input$title, x = input$xaxis, y=input$yaxis)
     })
   })
   observeEvent(input$entr,{
@@ -27,7 +31,8 @@ shinyServer(function(input,output,session){
     df1 = data.frame(X=X, Y=Y)
     output$table <- renderRHandsontable({
       rhandsontable(df1) # converts the R dataframe to rhandsontable object
-    })})
+    })
+  })
   observeEvent(input$curveBtn, {
     df1 <- hot_to_r(input$table)
     MMcurve<-formula(df1$Y ~ Vmax* df1$X /(Km + df1$X))
