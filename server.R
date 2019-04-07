@@ -1,6 +1,6 @@
 library(shiny)
 library(rhandsontable)
-
+library(ggplot2)
 # Creating dataset
 X = as.numeric(rep(NA, times = 10))
 Y = as.numeric(rep(NA, times =  10))

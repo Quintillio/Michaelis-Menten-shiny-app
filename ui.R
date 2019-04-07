@@ -1,5 +1,5 @@
 library(shiny)
-
+library(ggplot2)
 #shiny IO library
 # install.packages("rhandsontable") # install the package
 library(rhandsontable) # load the package
