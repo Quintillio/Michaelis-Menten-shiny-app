@@ -30,7 +30,9 @@ shinyUI( fluidPage(
                         )
                ),
                tabPanel( "Plot", value = "panel3", 
-                         plotOutput("plot1")
+                         plotOutput("plot1"),
+                         downloadButton(outputId = "down", label = "Download the plot"),
+                         radioButtons(inputId = "var1", label = "Select the file type", choices = list("png", "pdf"))
                ),
                tabPanel("Km and Vmax", value = "panel3",
                         h1("Km:",verbatimTextOutput("kmdisplay", placeholder = T)),
