@@ -52,5 +52,20 @@ shinyServer(function(input,output,session){
     autoInvalidate()
     cat(".")
   })
+  
+  output$down <- downloadHandler(
+    #Specify the file name
+    filename = function(){
+      #plot.png
+      #plot.pdf
+      paste("plot", input$var1, sep = ".")
+    },
+    content = function(file){
+      if(input$var1 == "png")
+        png(file)
+      else
+        pdf(file)
+    }
+  )
 })
 
