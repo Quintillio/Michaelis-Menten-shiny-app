@@ -11,6 +11,7 @@ df1 = data.frame(X=X, Y=Y)
 
 
 shinyServer(function(input,output,session){
+  bag <- reactiveValues()
   # returns rhandsontable type object - editable excel type grid data
   observeEvent(input$plotBtn, {
     df1 <- hot_to_r(input$table)
@@ -19,10 +20,12 @@ shinyServer(function(input,output,session){
     Coeffs <- coef(bestfit)
     output$plot1 <- renderPlot({
       #plot(df1$X,df1$Y,xlab=input$xaxis,ylab= input$yaxis, pch = 20, cex = 1.5, title(main= input$title))
-      ggplot(data = df1, mapping = aes(x = df1$X, y = df1$Y))+  
-        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),axis.line = element_line(colour = "black")) +
-        theme(plot.title = element_text(lineheight=.8, face="bold")) +
-        geom_point()+ labs(title = input$title, x = input$xaxis, y=input$yaxis)
+          myplot <- ggplot(data = df1, mapping = aes(x = df1$X, y = df1$Y))+  
+                      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),axis.line = element_line(colour = "black")) +
+                      theme(plot.title = element_text(lineheight=.8, face="bold")) +
+                      geom_point()+ labs(title = input$title, x = input$xaxis, y=input$yaxis) + scale_y_continuous(limits = c(0,NA)) +
+                      scale_x_continuous(limits = c(0,NA))
+      (bag$myplot <- myplot)
     })
   })
   observeEvent(input$entr,{
@@ -37,15 +40,16 @@ shinyServer(function(input,output,session){
     df1 <- hot_to_r(input$table)
     MMcurve<-formula(df1$Y ~ Vmax* df1$X /(Km + df1$X))
     bestfit <- nls(MMcurve, df1, start=list(Vmax=input$vmax,Km=input$Km))
-    Coeffs <- coef(bestfit)
+    bag$Coeffs <- coef(bestfit)
     output$plot1 <- renderPlot({
       #pch makes points solid. cex increases their size.
-      plot(df1$X,df1$Y,xlab=input$xaxis,ylab= input$yaxis, pch = 20, cex = 1.5, title(main= input$title))
-      curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
-      output$kmdisplay <- renderText({ Coeffs[2] })
-      output$vmaxdisplay <- renderText({ Coeffs[1] })
-      output$r2 <- renderText({ })
+      #plot(df1$X,df1$Y,xlab=input$xaxis,ylab= input$yaxis, pch = 20, cex = 1.5, title(main= input$title))
+      #curve(Coeffs[1]*x/(Coeffs[2]+x), add=TRUE)
+      bag$myplot + stat_function(fun = function(x){bag$Coeffs[1]*x/(bag$Coeffs[2]+x)})
     })
+    output$kmdisplay <- renderText({ bag$Coeffs[2] })
+    output$vmaxdisplay <- renderText({ bag$Coeffs[1] })
+    output$r2 <- renderText({ })
   })
   autoInvalidate <- reactiveTimer(10000)
   observe({
