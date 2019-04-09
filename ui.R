@@ -31,7 +31,7 @@ shinyUI( fluidPage(
                ),
                tabPanel( "Plot", value = "panel3", 
                          plotOutput("plot1"),
-                         actionButton("curveBtn","Export")
+                         downloadButton(outputId = "down", label = "Download the plot")
                ),
                tabPanel("Km and Vmax", value = "panel3",
                         h1("Km:",verbatimTextOutput("kmdisplay", placeholder = T)),
