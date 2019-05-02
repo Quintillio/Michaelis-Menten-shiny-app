@@ -14,17 +14,25 @@ df2 = data.frame(W=W, Z=Z)
 
 
 shinyServer(function(input,output,session){
+  observeEvent(input$jumpToP3, {
+    updateTabsetPanel(session, "inTabset",
+                      selected = "panel3")
+  })
+  observeEvent(input$jumpToP1, {
+    updateTabsetPanel(session, "inTabset",
+                      selected = "panel1")
+  })
   bag <- reactiveValues()
   # returns rhandsontable type object - editable excel type grid data
   observeEvent(input$plotBtn, {
     df1 <- hot_to_r(input$table)
     output$plot1 <- renderPlot({
       #plot(df1$X,df1$Y,xlab=input$xaxis,ylab= input$yaxis, pch = 20, cex = 1.5, title(main= input$title))
-          myplot <- ggplot(data = df1, mapping = aes(x = df1$X, y = df1$Y))+  
-                      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),axis.line = element_line(colour = "black")) +
-                      theme(plot.title = element_text(lineheight=.8, face="bold")) +
-                      geom_point()+ labs(title = input$title, x = input$xaxis, y=input$yaxis) + scale_y_continuous(limits = c(0,NA)) +
-                      scale_x_continuous(limits = c(0,NA))
+      myplot <- ggplot(data = df1, mapping = aes(x = df1$X, y = df1$Y))+  
+        theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),axis.line = element_line(colour = "black")) +
+        theme(plot.title = element_text(lineheight=.8, face="bold")) +
+        geom_point()+ labs(title = input$title, x = input$xaxis, y=input$yaxis) + scale_y_continuous(limits = c(0,NA)) +
+        scale_x_continuous(limits = c(0,NA))
       (bag$myplot <- myplot)
     })
   })
@@ -104,8 +112,8 @@ shinyServer(function(input,output,session){
     bag$Coeffs2 <- coef(bestfit2)
     output$plot1 <- renderPlot({
       bag$myplot + stat_function(fun = function(x){bag$Coeffs2[1]*x/(bag$Coeffs2[2]+x)}, colour = "red") + 
-          stat_function(fun = function(x){bag$Coeffs[1]*x/(bag$Coeffs[2]+x)})
-      })
+        stat_function(fun = function(x){bag$Coeffs[1]*x/(bag$Coeffs[2]+x)})
+    })
     output$kmdisplay <- renderText({ bag$Coeffs[2] })
     output$vmaxdisplay <- renderText({ bag$Coeffs[1] })
     output$r2 <- renderText({ })
@@ -115,20 +123,4 @@ shinyServer(function(input,output,session){
     autoInvalidate()
     cat(".")
   })
-  
-  output$down <- downloadHandler(
-    #Specify the file name
-    filename = function(){
-      #plot.png
-      #plot.pdf
-      paste("plot", input$var1, sep = ".")
-    },
-    content = function(file){
-      if(input$var1 == "png")
-        png(file)
-      else
-        pdf(file)
-    }
-  )
 })
-
