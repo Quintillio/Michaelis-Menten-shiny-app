@@ -14,10 +14,6 @@ df2 = data.frame(W=W, Z=Z)
 
 
 shinyServer(function(input,output,session){
-  observeEvent(input$jumpToP3, {
-    updateTabsetPanel(session, "inTabset",
-                      selected = "panel3")
-  })
   observeEvent(input$jumpToP1, {
     updateTabsetPanel(session, "inTabset",
                       selected = "panel1")
@@ -35,6 +31,8 @@ shinyServer(function(input,output,session){
         scale_x_continuous(limits = c(0,NA))
       (bag$myplot <- myplot)
     })
+    updateTabsetPanel(session, "inTabset",
+                      selected = "panel3")
   })
   observeEvent(input$plotBtn2, {
     df2 <- hot_to_r(input$table2)
@@ -46,6 +44,8 @@ shinyServer(function(input,output,session){
         scale_x_continuous(limits = c(0,NA))
       (bag$myplot <- myplot)
     })
+    updateTabsetPanel(session, "inTabset",
+                      selected = "panel3")
   })
   observeEvent(input$plotBtn3, {
     df1 <- hot_to_r(input$table)  
@@ -60,6 +60,8 @@ shinyServer(function(input,output,session){
         scale_x_continuous(limits = c(0,NA))
       (bag$myplot <- myplot)
     })
+    updateTabsetPanel(session, "inTabset",
+                      selected = "panel3")
   })
   observeEvent(input$entr,{
     X = as.numeric(rep(NA, times = input$obs))

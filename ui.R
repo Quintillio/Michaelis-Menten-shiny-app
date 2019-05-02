@@ -33,8 +33,7 @@ shinyUI( fluidPage(
                                   numericInput("Km", "Km Estimate", 1),
                                   actionButton("plotBtn", "Plot1"),
                                   actionButton("plotBtn2", "Plot2"),
-                                  actionButton("plotBtn3", "Plot Both"),
-                                  actionButton("jumpToP3", "Go To Results")
+                                  actionButton("plotBtn3", "Plot Both")
                            )
                          )
                ),
