@@ -33,7 +33,8 @@ shinyUI( fluidPage(
                                   numericInput("Km", "Km Estimate", 1),
                                   actionButton("plotBtn", "Plot1"),
                                   actionButton("plotBtn2", "Plot2"),
-                                  actionButton("plotBtn3", "Plot Both")
+                                  actionButton("plotBtn3", "Plot Both"),
+                                  actionButton("jumpToP3", "Go To Results")
                            )
                          )
                ),
@@ -42,9 +43,8 @@ shinyUI( fluidPage(
                          actionButton("curveBtn","Curve 1"),
                          actionButton("curveBtn2","Curve 2"),
                          actionButton("curveBtn3","Curve Both"),
+                         actionButton("jumpToP1", "Go Back To Data"),
                          br(),
-                         downloadButton(outputId = "down", label = "Download the plot"),
-                         radioButtons(inputId = "var1", label = "Select the file type", choices = list("png", "pdf")),
                          h1("Km:",verbatimTextOutput("kmdisplay", placeholder = T)),
                          h1("Vmax:",verbatimTextOutput("vmaxdisplay", placeholder = T)),
                          h1("R", tags$sup(2),verbatimTextOutput("r2", placeholder = T))
