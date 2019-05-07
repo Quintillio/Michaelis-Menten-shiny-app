@@ -44,9 +44,10 @@ shinyUI( fluidPage(
                          actionButton("curveBtn3","Curve Both"),
                          actionButton("jumpToP1", "Go Back To Data"),
                          br(),
-                         h1("Km:",verbatimTextOutput("kmdisplay", placeholder = T)),
-                         h1("Vmax:",verbatimTextOutput("vmaxdisplay", placeholder = T)),
-                         h1("R", tags$sup(2),verbatimTextOutput("r2", placeholder = T))
+                         h1("Km1:",verbatimTextOutput("kmdisplay", placeholder = T)),
+                         h1("Vmax1:", verbatimTextOutput("vmaxdisplay", placeholder = T)),
+                         h1("Km2:",verbatimTextOutput("kmdisplay2", placeholder = T)),
+                         h1("Vmax2:", verbatimTextOutput("vmaxdisplay2", placeholder = T))
                )
   )
 )

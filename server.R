@@ -51,9 +51,9 @@ shinyServer(function(input,output,session){
     df1 <- hot_to_r(input$table)  
     df2 <- hot_to_r(input$table2)
     df3 <- rbind(df1, df2)
-    
+    dataset <-  hot_to_r(input$table2)
     output$plot1 <- renderPlot({
-      myplot <- ggplot(data = df3, mapping = aes(x = X, y = Y, geom_point(colour = "red")))+
+      myplot <- ggplot(data = df3, mapping = aes(x = X, y = Y ))+
         theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),axis.line = element_line(colour = "black")) +
         theme(plot.title = element_text(lineheight=.8, face="bold")) +
         geom_point()+ labs(title = input$title, x = input$xaxis, y=input$yaxis) + scale_y_continuous(limits = c(0,NA)) +
@@ -99,9 +99,8 @@ shinyServer(function(input,output,session){
     output$plot1 <- renderPlot({
       bag$myplot + stat_function(fun = function(x){bag$Coeffs2[1]*x/(bag$Coeffs2[2]+x)})
     })
-    output$kmdisplay <- renderText({ bag$Coeffs2[2] })
-    output$vmaxdisplay <- renderText({ bag$Coeffs2[1] })
-    output$r2 <- renderText({ })
+    output$kmdisplay2 <- renderText({ bag$Coeffs2[2] })
+    output$vmaxdisplay2 <- renderText({ bag$Coeffs2[1] })
   })
   observeEvent(input$curveBtn3, {
     df1 <- hot_to_r(input$table)
@@ -118,6 +117,8 @@ shinyServer(function(input,output,session){
     })
     output$kmdisplay <- renderText({ bag$Coeffs[2] })
     output$vmaxdisplay <- renderText({ bag$Coeffs[1] })
+    output$kmdisplay2 <- renderText({ bag$Coeffs2[2] })
+    output$vmaxdisplay2 <- renderText({ bag$Coeffs2[1] })
     output$r2 <- renderText({ })
   })
   autoInvalidate <- reactiveTimer(10000)
